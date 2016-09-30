@@ -34,14 +34,12 @@ $(function(){
 	}
 
 	var buildError = function(errorMessage){
+		// Clones the error element from the templates section
 		var errorElem = $('.templates .error').clone();
-		console.log(errorElem)
-		
+		// modifies the text of the error element
 		var question = errorElem.find('.error-text')
 		question.text(errorMessage)
-		console.log(errorElem)
-		
-
+		// passes the error element back to be appended onto the player selection as a full error message
 		return errorElem;
 	}
 
@@ -51,14 +49,17 @@ $(function(){
 
 	var validateInput = function(input){
 		var currentInput = $(input).val()
+		$(input).val('')
 		var element = $(input).parent();
 		// if not valid show error for correct type of problem
 		if(currentInput == ''){
+			// pass through the error message and build it, then append it to the player names
 			$(element).append(buildError('Please enter a name'));
 		} else if (currentInput.match(/[^A-Za-z0-9" "]/gi)) {
 			$(element).append(buildError('Please enter only numbers, spaces and letters.'));
 			// else if valid add data to the players array
 		} else {
+			// return a successful input back to the players array
 			return currentInput;
 		}
 	}
@@ -67,8 +68,10 @@ $(function(){
 	$('section.info-screen').on('click', 'button', function(){
 		// creates new variable for this element
 		var element = $(this).parent();
+		// clear existing currentGame for restart
+		currentGame = {}
 		// creates a new object for the currentGame
-		var currentGame = Object.create(Game);
+		currentGame = Object.create(Game);
 		// calls hidescreen to hide the info-screen
 		hideScreen(element);
 		// shows the player-select screen
@@ -91,20 +94,31 @@ $(function(){
 	$('section.player-names').on('click', 'button', function(){
 		// get data from player names fields - store in array
 		var players = [];
+		var allValid = true;
+		console.log(currentGame)
 		clearErrors('section.player-names')
 		for(var i = 1; i <= currentGame.numPlayers; i++) {
 			// validate data from player names fields
 			var thisInput = $('input#p' + i)
 			players.push(validateInput(thisInput))
+			if (players[i - 1] == undefined) {
+				allValid = false;
+			}
 		}
+		console.log(players)
 		
-
-		// if not valid show error for correct type of problem
-
-		// else if valid add data to the players array
-
-		// hide player-names screen
-
-		// show game-board screen for whichever screen size the player is using
+		// check if all player names in the array are valid
+		if(allValid){
+			// add each player into the current game object
+			for(var i = 0; i < players.length; i++) {
+				var thisName = players[i].toLowerCase()
+				currentGame.players[thisName] = 0;
+			}
+			console.log(currentGame)
+			// hide player-names screen
+			hideScreen('.player-names');
+			// show game-board screen for whichever screen size the player is using
+			showScreen('.game-board')
+		}
 	})
 })
