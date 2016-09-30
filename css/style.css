@@ -1,0 +1,19 @@
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.player-select, .player-names, .game-board, .p-info {
+	display: none;
+}
+
+footer {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	text-align: center;
+}
+
+.hidden {
+	display: none;
+}

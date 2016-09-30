@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Thinkful Capstone Project created by Joshua T. Eimer. Play Jeopardy now!">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Jeopardy!</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/grid.css">
+</head>
+<body>
+	<header>
+		<h1>Jeopardy</h1>
+		<hr>
+	</header>
+	<main>
+		<section class="info-screen">
+			<h3>About This Game</h3>
+			<hr>
+			<p>Joshpardy is created as a proof of concept for a Jeopardy!&#8482; style game using the <a href="http://www.jservice.io">jservice.io API</a>. All copyrights and trademarks are the purview of their respective owners.</p>
+			<button>Let's Get Started!</button>
+		</section>
+		<section class="player-select screen">
+			<h3>How many players will be joining us today?</h3>
+			<hr>
+			<button id="2">2 Players</button>
+			<button id="3">3 Players</button>
+			<button id="4">4 Players</button>
+		</section>
+		<section class="player-names screen">
+			<h3>Please enter the players names</h3>
+			<hr>
+			<fieldset class="p-info player1">
+				<label for="p1">Player 1</label><input id="p1">
+			</fieldset>
+			<fieldset class="p-info player2">
+				<label for="p2">Player 2</label><input id="p2">
+			</fieldset>
+			<fieldset class="p-info player3">
+				<label for="p3">Player 3</label><input id="p3">
+			</fieldset>
+			<fieldset class="p-info player4">
+				<label for="p4">Player 4</label><input id="p4">
+			</fieldset>
+			<button>Submit Player Names</button>
+		</section>
+		<section class="game-board mobile">
+			<h3>Select A Category</h3>
+			<hr>
+			<div class="categories">
+				<button class="c1"><h2>Category 1</h2></button>
+				<button class="c2"><h2>Category 2</h2></button>
+				<button class="c3"><h2>Category 3</h2></button>
+				<button class="c4"><h2>Category 4</h2></button>
+				<button class="c5"><h2>Category 5</h2></button>
+				<button class="c6"><h2>Category 6</h2></button>
+			</div>
+			<div class="bet">
+				<button class="b1">$100</button>
+				<button class="b2">$200</button>
+				<button class="b3">$300</button>
+				<button class="b4">$400</button>
+				<button class="b5">$500</button>
+			</div>
+		</section>
+	</main>
+	<section class="templates hidden">
+		<div class="error">
+			<h4>Error: </h4>
+			<p class="error-text">test</p>
+		</div>
+	</section>
+	<footer>
+		<section>
+			<hr>
+			<p>Joshpardy created by Josh Eimer using the <a href="http://www.jservice.io">jservice.io API</a>.</p>
+		</section>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
