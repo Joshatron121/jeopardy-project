@@ -20,56 +20,109 @@
 			<p>Joshpardy is created as a proof of concept for a Jeopardy!&#8482; style game using the <a href="http://www.jservice.io">jservice.io API</a>. All copyrights and trademarks are the purview of their respective owners.</p>
 			<button>Let's Get Started!</button>
 		</section>
-		<section class="player-select screen">
+		<section class="player-select">
 			<h3>How many players will be joining us today?</h3>
 			<hr>
 			<button id="2">2 Players</button>
 			<button id="3">3 Players</button>
 			<button id="4">4 Players</button>
 		</section>
-		<section class="player-names screen">
+		<section class="player-names">
 			<h3>Please enter the players names</h3>
 			<hr>
-			<fieldset class="p-info player1">
-				<label for="p1">Player 1</label><input id="p1">
-			</fieldset>
-			<fieldset class="p-info player2">
-				<label for="p2">Player 2</label><input id="p2">
-			</fieldset>
-			<fieldset class="p-info player3">
-				<label for="p3">Player 3</label><input id="p3">
-			</fieldset>
-			<fieldset class="p-info player4">
-				<label for="p4">Player 4</label><input id="p4">
-			</fieldset>
+			<div class="p-info">
+			</div>
 			<button>Submit Player Names</button>
 		</section>
-		<section class="game-board mobile">
-			<h3>Select A Category</h3>
-			<hr>
-			<div class="categories">
-				<button class="c1"><h2>Category 1</h2></button>
-				<button class="c2"><h2>Category 2</h2></button>
-				<button class="c3"><h2>Category 3</h2></button>
-				<button class="c4"><h2>Category 4</h2></button>
-				<button class="c5"><h2>Category 5</h2></button>
-				<button class="c6"><h2>Category 6</h2></button>
-			</div>
-			<div class="bet">
-				<button class="b1">$100</button>
-				<button class="b2">$200</button>
-				<button class="b3">$300</button>
-				<button class="b4">$400</button>
-				<button class="b5">$500</button>
+		<section class="game-board row">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-10">
+						<h3>Select A Category</h3>
+						<hr>
+					</div>
+				</div>
+				<div class="board row">
+					<div class="col-10">
+						<div class="categories row">
+							<div id="a0" class="cat cell col-2">Category 1</div>
+							<div id="a1" class="cat cell col-2">Category 2</div>
+							<div id="a2" class="cat cell col-2">Category 3</div>
+							<div id="a3" class="cat cell col-2">Category 4</div>
+							<div id="a4" class="cat cell col-2">Category 5</div>
+							<div id="a5" class="cat cell col-2">Category 6</div>
+						</div>
+						<div class="row">
+							<div id="clue-0" class="hidden-mobile col-2">
+								<div id="b0" class="cell">$100</div>
+								<div id="b1" class="cell">$200</div>
+								<div id="b2" class="cell">$300</div>
+								<div id="b3" class="cell">$400</div>
+								<div id="b4" class="cell">$500</div>
+							</div>
+							<div id="clue-1" class="hidden-mobile col-2">
+								<div id="c0" class="cell">$100</div>
+								<div id="c1" class="cell">$200</div>
+								<div id="c2" class="cell">$300</div>
+								<div id="c3" class="cell">$400</div>
+								<div id="c4" class="cell">$500</div>
+							</div>
+							<div id="clue-2" class="hidden-mobile col-2">
+								<div id="d0" class="cell">$100</div>
+								<div id="d1" class="cell">$200</div>
+								<div id="d2" class="cell">$300</div>
+								<div id="d3" class="cell">$400</div>
+								<div id="d4" class="cell">$500</div>
+							</div>
+							<div id="clue-3" class="hidden-mobile col-2">
+								<div id="e0" class="cell">$100</div>
+								<div id="e1" class="cell">$200</div>
+								<div id="e2" class="cell">$300</div>
+								<div id="e3" class="cell">$400</div>
+								<div id="e4" class="cell">$500</div>
+							</div>
+							<div id="clue-4" class="hidden-mobile col-2">
+								<div id="f0" class="cell">$100</div>
+								<div id="f1" class="cell">$200</div>
+								<div id="f2" class="cell">$300</div>
+								<div id="f3" class="cell">$400</div>
+								<div id="f4" class="cell">$500</div>
+							</div>
+							<div id="clue-5" class="hidden-mobile col-2">
+								<div id="g0" class="cell">$100</div>
+								<div id="g1" class="cell">$200</div>
+								<div id="g2" class="cell">$300</div>
+								<div id="g3" class="cell">$400</div>
+								<div id="g4" class="cell">$500</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="question">
+					<h3>Here is your question, click the button or press Spacebar to buzz in!</h3>
+					<p></p>
+					<button>Buzz In!</button>
+				</div>
+				<div class="player-buzzed">
+					<h3>Which player buzzed in?</h3>
+					<div class="player-buttons"></div>
+				</div>
+				<div class="answer-screen">
+					<h3>What is your answer? (Do not phrase it in the form of a question)</h3>
+					<input></input><button>Submit Answer</button>
+				</div>
+				<div class="scoreboard-field hidden-mobile">
+
+				</div>
 			</div>
 		</section>
-	</main>
-	<section class="templates hidden">
+		<section class="templates hidden">
 		<div class="error">
 			<h4>Error: </h4>
-			<p class="error-text">test</p>
+			<p class="error-text"></p>
 		</div>
 	</section>
+	</main>
 	<footer>
 		<section>
 			<hr>

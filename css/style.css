@@ -1,10 +1,15 @@
+* {
+	font-size: 100%;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
+
 hr {
 	margin-top: 10px;
 	margin-bottom: 10px;
-}
-
-.player-select, .player-names, .game-board, .p-info {
-	display: none;
 }
 
 footer {
@@ -14,6 +19,32 @@ footer {
 	text-align: center;
 }
 
+div.cell {
+	text-align: center;
+}
+
 .hidden {
 	display: none;
+}
+
+.hidden-mobile {
+	display: none;
+}
+
+.player-select, .player-names, .game-board, .question, .player-buzzed, .answer-screen {
+	display: none;
+}
+
+@media only screen and (min-width: 640px) {
+	.hidden-mobile {
+		display: block;
+	}
+
+	.scoreboard-field {
+		display: block;
+	}
+
+	.scoreboard {
+		display: inline-block;
+	}
 }
