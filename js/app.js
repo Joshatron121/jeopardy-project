@@ -14,15 +14,14 @@ $(function(){
 	var newPlaythrough = function(){
 		var Playthrough = {
 			numPlayers: 0,
-			turns: 0,
-			round: 0,
-			winner: '',
+			turns: 1,
+			round: 1,
+			winners: [],
 			categories: [],
 			players: [],
 		}
 
 		currentGame = Object.create(Playthrough)
-
 		
 		getCategories()
 	}
@@ -58,12 +57,10 @@ $(function(){
 		// $.get('http://jservice.io/api/categories?count=6&offset=' + Math.floor(Math.random() * 10000)).success(buildCategories);
 		$.each(data, function(i, v){
 			var url = newUrl(v.id);
-			console.log(url)
 			getData(url);
 
 		})
 		currentGame.categories = catArray;
-		console.log(currentGame)
 	}
 
 	var newUrl = function(id) {
@@ -77,9 +74,7 @@ $(function(){
 
 	var buildCategories = function(){
 		var categoryList = currentGame.categories;
-		console.log(categoryList.length)
 		$.each(categoryList, function(i, v){
-			console.log(v)
 			$('#a' + (i)).text(v.title)
 		});
 	}
@@ -107,12 +102,14 @@ $(function(){
 
 	var showPlayers = function() {
 		// for each player in the game
-		for(var i = 1; i <= currentGame.numPlayers; i++) {
-			// Show the player field on player-names screen
-			$('.p-info').append(
-				'<fieldset class=" player' + i + '">' +
-					'<label for="p' + i + '">Player ' + i + '</label><input id="p' + i + '">' +
-				'</fieldset>');
+		if(games.length == 0) {
+			for(var i = 1; i <= currentGame.numPlayers; i++) {
+				// Show the player field on player-names screen
+				$('.p-info').append(
+					'<fieldset class=" player' + i + '">' +
+						'<label for="p' + i + '">Player ' + i + '</label><input id="p' + i + '">' +
+					'</fieldset>');
+			}
 		}
 	}
 
@@ -159,16 +156,16 @@ $(function(){
 	}
 
 	var buildQuestion = function(cell, cat) {
+		console.log('made it!')
+		console.log(currentGame)
 		// get just the number from the cell clicked to be used as an index
 		cellNum = cell.replace(/\D+/, '');
 		thisRound.currentBet = ((parseInt(cellNum) + 1) + '00')
-		console.log(thisRound.currentBet)
 		// get just the number of the category clicked to be used as an index
 		catNum = cat.replace(/\D+/, '');
 		// get the question object that was clicked and store it for further use
 		var clickedQuestion = currentGame.categories[catNum].clues[cellNum];
 		thisRound.currentQuestion = currentGame.categories[catNum].clues[cellNum];
-		console.log(cellNum, catNum)
 		showScreen('.question')
 		$('.question p').text(clickedQuestion.question)
 	}
@@ -176,38 +173,89 @@ $(function(){
 	var selectPlayer = function(){
 		hideScreen('.question button')
 		showScreen('.player-buzzed')
+		showScreen('.player-buttons')
 		thisRound.buzzed = false;
-		for(var i = 0; i < (currentGame.numPlayers); i++) {
-			$('div.player-buttons').append('<button class="player-' + (i + 1) + '">' + currentGame.players[i].name + '</button>')
+		// Change this back to 1!
+		if(currentGame.round == 1 && currentGame.turns == 1) {
+			for(var i = 0; i < (currentGame.numPlayers); i++) {
+				$('div.player-buttons').append('<button class="player-' + (i + 1) + '">' + currentGame.players[i].name + '</button>')
+			}
+		}
+	}
+
+	var roundEndMaintenance = function(gameOver){
+		// reset thisRound object
+		thisRound.clickedContent = false;
+		thisRound.playerClicked = 0;
+		thisRound.currentQuestion = {};
+		thisRound.currentBet = 0;
+		thisRound.buzzed = true;
+		// reset turns counter
+		currentGame.turns = 1;
+		hideScreen('.answer-screen')
+		hideScreen('.question')
+		hideScreen('.buzzed')
+		showScreen('.question button')
+
+		if(gameOver) {
+			// Reset rounds counter for new game
+			currentGame.round = 1;
+		} else {
+			// increment rounds counter for next round
+			currentGame.round++
 		}
 	}
 
 	var finishRound = function(){
-		console.log('made it')
 		// if rounds are at 10 end game and show final scores
-		if(currentGame.rounds >= 10) {
+		if(currentGame.round >= 10) {
+			roundEndMaintenance(true)
 			endGame()
 		} else {
+			roundEndMaintenance(false)
 			//  else reset thisRound object.
-			thisRound.clickedContent = false;
-			thisRound.playerClicked = 0;
-			thisRound.currentQuestion = {};
-			thisRound.currentBet = 0;
-			thisRound.buzzed = true;
-			// increment rounds counter
-			currentGame.rounds++
-			// Hide all non scoreboard screens
-			hideScreen('.answer-screen')
-			hideScreen('.question')
-			hideScreen('.buzzed')
-			showScreen('.question button')
 		}
+	}
 
+	var determineWinner = function(players) {
+		var currentPlayers = currentGame.players;
+		var playerScores = [];
+		var highestScore = 0;
+		var numWinners = 0
+		$.each(currentPlayers, function(i, v){
+			playerScores.push(v.score);
+		})
+		highestScore = Math.max.apply(null, playerScores);
 
+		$.each(currentPlayers,function(i, v){
+			if(v.score == highestScore){
+				currentGame.winners.push(v.name)
+			}
+		})
 	}
 
 	var endGame = function(){
-		console.log('whoops')
+		var currentPlayers = currentGame.players;
+		$('.cell').css('visibility', 'visible');
+		$('.cell').removeClass('clicked')
+
+		games.push(currentGame);
+		determineWinner(currentPlayers);
+		hideScreen('.game-board');
+		$('.scoreboard').remove();
+		$('div.player-buttons button').remove()
+		showScreen('.winner-screen');
+		
+		var winners = currentGame.winners;
+		var output = '';
+		if(winners.length > 1) {
+			$.each(currentGame.winners, function(i, v){
+				output == '' ? output += v : output += (' and ' + v)
+			})
+		} else {
+			output = winners.toString();
+		}
+		$('.winner-screen h3').text(output)
 	}
 
 	newPlaythrough()
@@ -242,7 +290,6 @@ $(function(){
 		showScreen($(element).next());
 		// Show the fields for the correct number of players
 		showPlayers()
-		console.log(currentGame)
 	})
 
 	$('section.player-names').on('click', 'button', function(){
@@ -272,23 +319,29 @@ $(function(){
 			// show game-board screen for whichever screen size the player is using
 			showScreen('.game-board')
 			buildScoreBoard();
-			buildCategories()
+			buildCategories();
 		}
 	})
 
 	$('.cell').click(function(){
+		clearErrors('.game-board')
+		console.log(thisRound.clickedContent)
 		if(thisRound.clickedContent == false) {
 			thisRound.clickedContent = true;
 			var cellClicked = $(this).attr('id');
-			var thisCellNum = cellClicked[1]
-			if(cellClicked[0] === 'a') {
-				if($('#clue-' + cellClicked[thisCellNum - 1]).css('display') == 'none') {
-					clueSelection(cellClicked, mobile)
+			if(!($('#' + cellClicked).hasClass('clicked'))){
+				$('#' + cellClicked).addClass('clicked');
+				var thisCellNum = cellClicked[1]
+				if(cellClicked[0] === 'a') {
+					if($('#clue-' + cellClicked[thisCellNum - 1]).css('display') == 'none') {
+						clueSelection(cellClicked, mobile)
+					}
+				} else {
+					var categoryClicked = $(this).parent().attr('id')				
+					$('#' + cellClicked).css('visibility', 'hidden')
+					buildQuestion(cellClicked, categoryClicked);
 				}
-			} else {
-				var categoryClicked = $(this).parent().attr('id')
-				buildQuestion(cellClicked, categoryClicked);
-			}	
+			}
 		}
 	});
 
@@ -317,9 +370,7 @@ $(function(){
 	$('.answer-screen').on('click', 'button', function(){
 		$('div.player-buttons').hide();
 		clearErrors('.player-buzzed')
-		console.log(thisRound)
-		var thisAnswer = thisRound.currentQuestion.answer.toLowerCase().replace("<i>", '').replace("</i>", '').replace("\"", '').replace("(", '').replace(")", '')
-		console.log(thisAnswer)
+		var thisAnswer = thisRound.currentQuestion.answer.toLowerCase().replace("<i>", '').replace("</i>", '').replace('"', '').replace("(", '').replace(")", '').replace("\\", '').replace('"', '')
 		var playerAnswer = $('.answer-screen input').val().toLowerCase()
 		$('.answer-screen input').val('')
 		if(playerAnswer == thisAnswer){
@@ -329,16 +380,20 @@ $(function(){
 			currentGame.turns++ 
 			finishRound()
 		} else if (currentGame.turns >= 5) {
-			$('.game-board').append(buildError('Sorry! You\'ve run out of turns! Try a different clue.'));
+			$('.board').append(buildError('Sorry! You\'ve run out of turns! Try a different clue.'));
 			finishRound();
 		} else {
 			thisRound.buzzed = true;
-			console.log(thisRound.playerClicked);
 			hideScreen('.answer-screen');
-			showScreen('.player-buzzed');
+			showScreen('.question button')
 			$('.player-buzzed').append(buildError('Wrong! Try again!'));
 			currentGame.turns++;
-
 		}
+	})
+
+	$('.winner-screen').on('click', 'button', function(){
+		hideScreen('.winner-screen');
+		showScreen('.info-screen');
+		newPlaythrough()
 	})
 })

@@ -31,7 +31,7 @@ div.cell {
 	display: none;
 }
 
-.player-select, .player-names, .game-board, .question, .player-buzzed, .answer-screen {
+.player-select, .player-names, .game-board, .question, .player-buzzed, .answer-screen, .winner-screen {
 	display: none;
 }
 
