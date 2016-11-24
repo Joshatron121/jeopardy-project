@@ -15,7 +15,7 @@ $(function(){
 		var Playthrough = {
 			numPlayers: 0,
 			turns: 1,
-			round: 1,
+			round: 9,
 			winners: [],
 			categories: [],
 			players: [],
@@ -107,7 +107,7 @@ $(function(){
 				// Show the player field on player-names screen
 				$('.p-info').append(
 					'<fieldset class=" player' + i + '">' +
-						'<label for="p' + i + '">Player ' + i + '</label><input id="p' + i + '">' +
+						'<label for="p' + i + '">Player ' + i + '</label>&nbsp;<input id="p' + i + '">' +
 					'</fieldset>');
 			}
 		}
@@ -156,7 +156,6 @@ $(function(){
 	}
 
 	var buildQuestion = function(cell, cat) {
-		console.log('made it!')
 		console.log(currentGame)
 		// get just the number from the cell clicked to be used as an index
 		cellNum = cell.replace(/\D+/, '');
@@ -176,7 +175,7 @@ $(function(){
 		showScreen('.player-buttons')
 		thisRound.buzzed = false;
 		// Change this back to 1!
-		if(currentGame.round == 1 && currentGame.turns == 1) {
+		if(currentGame.round == 9 && currentGame.turns == 1) {
 			for(var i = 0; i < (currentGame.numPlayers); i++) {
 				$('div.player-buttons').append('<button class="player-' + (i + 1) + '">' + currentGame.players[i].name + '</button>')
 			}
@@ -242,6 +241,7 @@ $(function(){
 		games.push(currentGame);
 		determineWinner(currentPlayers);
 		hideScreen('.game-board');
+		hideScreen('.scoreboard-field')
 		$('.scoreboard').remove();
 		$('div.player-buttons button').remove()
 		showScreen('.winner-screen');
@@ -318,6 +318,7 @@ $(function(){
 			hideScreen('.player-names');
 			// show game-board screen for whichever screen size the player is using
 			showScreen('.game-board')
+			showScreen('.scoreboard-field')
 			buildScoreBoard();
 			buildCategories();
 		}
@@ -363,6 +364,7 @@ $(function(){
 	$('.player-buzzed').on('click', 'button', function(){
 		var playerClicked = $(this).attr('class')
 		thisRound.playerClicked = playerClicked.replace(/\D+/, '');
+		console.log(thisRound.currentQuestion.answer)
 		hideScreen('.player-buzzed');
 		showScreen('.answer-screen');
 	})
@@ -386,7 +388,7 @@ $(function(){
 			thisRound.buzzed = true;
 			hideScreen('.answer-screen');
 			showScreen('.question button')
-			$('.player-buzzed').append(buildError('Wrong! Try again!'));
+			$('.question').append(buildError('Wrong! Try again!'));
 			currentGame.turns++;
 		}
 	})

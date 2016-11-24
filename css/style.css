@@ -7,6 +7,17 @@
 	hyphens: auto;
 }
 
+header {
+	margin-bottom: 20px;
+	padding: 10px;
+	border-bottom: 1px solid black;
+}
+
+header > h1 {
+	width: 75%;
+	margin: 0 auto;
+}
+
 hr {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -19,6 +30,59 @@ footer {
 	text-align: center;
 }
 
+header, footer, section {
+	background-color: #FCFBE3;
+}
+
+section {
+	margin: 0 auto;
+	width: 75%;
+	border-radius: 5px;
+	border: solid 1px black;
+	padding: 10px;
+}
+
+.board {
+	width: 90%;
+	background-color: #1200FF;
+	color: #F3FF6B;
+	border-radius: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.modal-background {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.4)
+}
+
+.modal-content {
+	width: 75%;
+	margin: 25% auto;
+	padding: 15px;
+	background-color: #FCFBE3;
+
+}
+
+button {
+	width: 100%;
+	margin-top: 15px;
+	border: none;
+	padding: 10px;
+	border: solid 1px black;
+	background-color: #B7B7B7;
+}
+
+body, footer {
+	background-color: #1200FF;
+}
+
 div.cell {
 	text-align: center;
 }
@@ -27,24 +91,20 @@ div.cell {
 	display: none;
 }
 
-.hidden-mobile {
+.player-select, .player-names, .game-board, .question, .player-buzzed, .answer-screen, .winner-screen, .scoreboard-field {
 	display: none;
 }
 
-.player-select, .player-names, .game-board, .question, .player-buzzed, .answer-screen, .winner-screen {
-	display: none;
+.player-name-field: {
+	margin-left: 10px;
 }
 
-@media only screen and (min-width: 640px) {
-	.hidden-mobile {
-		display: block;
-	}
+.scoreboard-field {
+	width: 75%;
+	margin: 0 auto;
+}
 
-	.scoreboard-field {
-		display: block;
-	}
-
-	.scoreboard {
-		display: inline-block;
-	}
+.scoreboard {
+	display: inline-block;
+	width: 25%;
 }

@@ -11,7 +11,6 @@
 <body>
 	<header>
 		<h1>Jeopardy</h1>
-		<hr>
 	</header>
 	<main>
 		<section class="info-screen">
@@ -43,82 +42,96 @@
 					</div>
 				</div>
 				<div class="board row">
-					<div class="col-10">
-						<div class="categories row">
-							<div id="a0" class="cat cell col-2">Category 1</div>
-							<div id="a1" class="cat cell col-2">Category 2</div>
-							<div id="a2" class="cat cell col-2">Category 3</div>
-							<div id="a3" class="cat cell col-2">Category 4</div>
-							<div id="a4" class="cat cell col-2">Category 5</div>
-							<div id="a5" class="cat cell col-2">Category 6</div>
+					<div class="categories row">
+						<div id="a0" class="cat cell col-2">Category 1</div>
+						<div id="a1" class="cat cell col-2">Category 2</div>
+						<div id="a2" class="cat cell col-2">Category 3</div>
+						<div id="a3" class="cat cell col-2">Category 4</div>
+						<div id="a4" class="cat cell col-2">Category 5</div>
+						<div id="a5" class="cat cell col-2">Category 6</div>
+					</div>
+					<div class="row">
+						<div id="clue-0" class=" col-2">
+							<div id="b0" class="cell">$100</div>
+							<div id="b1" class="cell">$200</div>
+							<div id="b2" class="cell">$300</div>
+							<div id="b3" class="cell">$400</div>
+							<div id="b4" class="cell">$500</div>
 						</div>
-						<div class="row">
-							<div id="clue-0" class="hidden-mobile col-2">
-								<div id="b0" class="cell">$100</div>
-								<div id="b1" class="cell">$200</div>
-								<div id="b2" class="cell">$300</div>
-								<div id="b3" class="cell">$400</div>
-								<div id="b4" class="cell">$500</div>
-							</div>
-							<div id="clue-1" class="hidden-mobile col-2">
-								<div id="c0" class="cell">$100</div>
-								<div id="c1" class="cell">$200</div>
-								<div id="c2" class="cell">$300</div>
-								<div id="c3" class="cell">$400</div>
-								<div id="c4" class="cell">$500</div>
-							</div>
-							<div id="clue-2" class="hidden-mobile col-2">
-								<div id="d0" class="cell">$100</div>
-								<div id="d1" class="cell">$200</div>
-								<div id="d2" class="cell">$300</div>
-								<div id="d3" class="cell">$400</div>
-								<div id="d4" class="cell">$500</div>
-							</div>
-							<div id="clue-3" class="hidden-mobile col-2">
-								<div id="e0" class="cell">$100</div>
-								<div id="e1" class="cell">$200</div>
-								<div id="e2" class="cell">$300</div>
-								<div id="e3" class="cell">$400</div>
-								<div id="e4" class="cell">$500</div>
-							</div>
-							<div id="clue-4" class="hidden-mobile col-2">
-								<div id="f0" class="cell">$100</div>
-								<div id="f1" class="cell">$200</div>
-								<div id="f2" class="cell">$300</div>
-								<div id="f3" class="cell">$400</div>
-								<div id="f4" class="cell">$500</div>
-							</div>
-							<div id="clue-5" class="hidden-mobile col-2">
-								<div id="g0" class="cell">$100</div>
-								<div id="g1" class="cell">$200</div>
-								<div id="g2" class="cell">$300</div>
-								<div id="g3" class="cell">$400</div>
-								<div id="g4" class="cell">$500</div>
-							</div>
+						<div id="clue-1" class=" col-2">
+							<div id="c0" class="cell">$100</div>
+							<div id="c1" class="cell">$200</div>
+							<div id="c2" class="cell">$300</div>
+							<div id="c3" class="cell">$400</div>
+							<div id="c4" class="cell">$500</div>
+						</div>
+						<div id="clue-2" class=" col-2">
+							<div id="d0" class="cell">$100</div>
+							<div id="d1" class="cell">$200</div>
+							<div id="d2" class="cell">$300</div>
+							<div id="d3" class="cell">$400</div>
+							<div id="d4" class="cell">$500</div>
+						</div>
+						<div id="clue-3" class=" col-2">
+							<div id="e0" class="cell">$100</div>
+							<div id="e1" class="cell">$200</div>
+							<div id="e2" class="cell">$300</div>
+							<div id="e3" class="cell">$400</div>
+							<div id="e4" class="cell">$500</div>
+						</div>
+						<div id="clue-4" class=" col-2">
+							<div id="f0" class="cell">$100</div>
+							<div id="f1" class="cell">$200</div>
+							<div id="f2" class="cell">$300</div>
+							<div id="f3" class="cell">$400</div>
+							<div id="f4" class="cell">$500</div>
+						</div>
+						<div id="clue-5" class=" col-2">
+							<div id="g0" class="cell">$100</div>
+							<div id="g1" class="cell">$200</div>
+							<div id="g2" class="cell">$300</div>
+							<div id="g3" class="cell">$400</div>
+							<div id="g4" class="cell">$500</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section class="question">
-			<h3>Here is your question, click the button or press Spacebar to buzz in!</h3>
-			<p></p>
-			<button>Buzz In!</button>
+		<section class="question modal">
+			<div class="modal-background">
+				<div class="modal-content">
+					<h3>Here is your question, click the button or press Spacebar to buzz in!</h3>
+					<p></p>
+					<button>Buzz In!</button>
+				</div>
+			</div>
 		</section>
-		<section class="player-buzzed">
-			<h3>Which player buzzed in?</h3>
-			<div class="player-buttons"></div>
+		<section class="player-buzzed modal">
+			<div class="modal-background">
+				<div class="modal-content">
+					<h3>Which player buzzed in?</h3>
+					<div class="player-buttons"></div>
+				</div>
+			</div>
 		</section>
-		<section class="answer-screen">
-			<h3>What is your answer? (Do not phrase it in the form of a question)</h3>
-			<input></input><button>Submit Answer</button>
+		<section class="answer-screen modal">
+			<div class="modal-background">
+				<div class="modal-content">
+					<h3>What is your answer? (Do not phrase it in the form of a question)</h3>
+					<input></input><button>Submit Answer</button>
+				</div>
+			</div>
 		</section>
-		<section class="winner-screen">
-			<h3></h3>
-			<p>Congratulations! You win!</p>
-			<button>Play Again?</button>
+		<section class="winner-screen modal">
+			<div class="modal-background">
+				<div class="modal-content">
+					<h3></h3>
+					<p>Congratulations! You win!</p>
+					<button>Play Again?</button>
+				</div>
+			</div>
 		</section>
-		<section class="scoreboard-field hidden-mobile">
+		<section class="scoreboard-field">
 
 		</section>
 		<section class="templates hidden">
@@ -130,7 +143,6 @@
 	</main>
 	<footer>
 		<section>
-			<hr>
 			<p>Joshpardy created by Josh Eimer using the <a href="http://www.jservice.io">jservice.io API</a>.</p>
 		</section>
 	</footer>
